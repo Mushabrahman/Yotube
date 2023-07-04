@@ -13,7 +13,6 @@ const VideoDetail = ({videoId}) => {
 
 
     useEffect(() => {
-      
         videoDetails();
       }, [videoId]);
 

@@ -23,25 +23,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { YOUTUBE_SEARCH_URL } from "./constants"
 import { useContext } from 'react';
-import { MyContext } from './context';
+import { MyContext } from './MyContext';
 
 const Sidebar = () => {
+
   const { text, setText } = useContext(MyContext);
-
-
-  const categoriesArray = [
-    "Home",
-    "Computer",
-    "Music",
-    "Movies",
-    "Travel",
-    "Food",
-    "Drinks",
-    "Dogs",
-    "BMW",
-  ];
-
-
+ 
   const categoriesArr = [
     { icon: <BsHouseDoor />, name: "Home" },
     { icon: <BsController />, name: "Gaming" },
@@ -67,19 +54,14 @@ const Sidebar = () => {
     { icon: <TbBeach />, name: "Vacations" },
   ];
 
+
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
+ 
 
-  // const navigate = useNavigate();
 
-  // console.log(text)
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   if (text) {
-  //     navigate(`/search/${text}`);
-  //   }
-  // };
+
 
   if (!isMenuOpen) return null;
 
@@ -89,15 +71,10 @@ const Sidebar = () => {
         
         <p
           key= {i}
-          onClick={() => {
-            setText(eachcatg.name);
-          
-           
-          }}
         >
           
           <span className="sidebar-icon">{eachcatg.icon}</span>
-          <span className="sidebar-name">{eachcatg.name}</span>
+          <span className="sidebar-name">{eachcatg.name+i}</span>
         </p>
       ))}
     </div>

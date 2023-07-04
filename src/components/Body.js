@@ -3,21 +3,30 @@ import Sidebar from './Sidebar';
 import VideoContainer from './VideoContainer';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { YOUTUBE_VIDEO_URL } from './constants.js'
+import { SEARCH_VIDEO_LIST_API,YOUTUBE_VIDEO_URL  } from './constants.js'
+import { useContext } from 'react';
+import { MyContext } from './context';
 
 
 const Body = () => {
-  const[selectedCategory,setselectedCategory]=useState('LoveToday');
-  const[videos,setvideos]=useState([ ]);
+
+ 
+  const { text, setText } = useContext(MyContext);
+  const[videos,setvideos]=useState([]);
+  const[isLoading,setIsLoading]  = useState(false)
   
+
+
   useEffect(()=>{
-    getvideos();
-  },[])
+    getvideos( );
+  },[text])
 
   const getvideos= async () =>{
-    const data = await fetch(YOUTUBE_VIDEO_URL);
+    setIsLoading(true)
+    const data = await fetch(text==="Home"?YOUTUBE_VIDEO_URL:SEARCH_VIDEO_LIST_API+text);
     const json = await data.json();
     setvideos(json.items);
+    setIsLoading(false)
   };
 
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
@@ -25,9 +34,8 @@ const Body = () => {
 
   return (
     <div className={isMenuOpen?'bodyafter':'body'}>
-   <Sidebar selectedCategory={selectedCategory} setselectedCategory={setselectedCategory}/>
-  
-   <VideoContainer videos={videos} />
+   <Sidebar/>
+   <VideoContainer videos={videos} setText={setText} isLoading={isLoading}/>
     </div>
   )
 }

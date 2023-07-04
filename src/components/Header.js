@@ -4,9 +4,13 @@ import { BiUserCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "./utils/appSlice";
 import { useNavigate, Link } from "react-router-dom";
-import { YOUTUBE_SEARCH_URL } from "./constants";
+import { useContext } from 'react';
+import { MyContext } from './context';
+
 
 const Header = () => {
+  const { setText } = useContext(MyContext);
+  const[videos,setvideos]=useState([]);
   const dispatch = useDispatch();
   const [searchquery, setSearchquery] = useState("");
 
@@ -55,6 +59,7 @@ const Header = () => {
           <img
             className="youtube-icon"
             src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500"
+            onClick={()=>{setText("Home")}}
           />
         </Link>
       </div>

@@ -5,14 +5,18 @@ import VideoContainer from './VideoContainer';
 import { SEARCH_VIDEO_LIST_API } from "./constants";
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux";
+import { useContext } from 'react';
+import { MyContext } from './context';
 
 const SearchVideos = () => {
 
-    const[selectedCategory,setselectedCategory]=useState('LoveToday');
+  const { text, setText } = useContext(MyContext);
+
+  console.log(text);
+
+  
     const[videos,setvideos]=useState([ ]);
     const params =useParams();
- 
-   
     
     useEffect(()=>{
         getSearchSuggesgtions();
@@ -29,7 +33,7 @@ const SearchVideos = () => {
     
   return (
     <div className={isMenuOpen ? "bodyafter" : "body"}>
-        <Sidebar selectedCategory={selectedCategory} setselectedCategory={setselectedCategory}/>
+        <Sidebar/>
         <VideoContainer videos={videos}  />
     </div>
   )
